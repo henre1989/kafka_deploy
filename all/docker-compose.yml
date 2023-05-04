@@ -3,7 +3,7 @@ version: '3.5'
 services:
 
   broker1:
-    image: confluentinc/cp-kafka:7.3.3
+    image: confluentinc/cp-kafka:7.4.0
     hostname: broker1
     container_name: broker1
     ports:
@@ -31,14 +31,15 @@ services:
       KAFKA_AUTHORIZER_CLASS_NAME: 'org.apache.kafka.metadata.authorizer.StandardAuthorizer'
       KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
       KAFKA_LOG_DIRS: '/tmp/kraft-combined-logs'
+      CLUSTER_ID: 'zlFiTJelTOuhnklFwLWixw'
     volumes:
-      - ./scripts/update_run.sh:/tmp/update_run.sh
-      - ./clusterID:/tmp/clusterID
+#      - ./scripts/update_run.sh:/tmp/update_run.sh
+#      - ./clusterID:/tmp/clusterID
       - ./jaas:/etc/kafka/jaas
-    command: "bash -c '/tmp/update_run.sh && /etc/confluent/docker/run'"
+#    command: "bash -c '/tmp/update_run.sh && /etc/confluent/docker/run'"
 
   broker2:
-    image: confluentinc/cp-kafka:7.3.3
+    image: confluentinc/cp-kafka:7.4.0
     hostname: broker2
     container_name: broker2
     ports:
@@ -66,14 +67,15 @@ services:
       KAFKA_AUTHORIZER_CLASS_NAME: 'org.apache.kafka.metadata.authorizer.StandardAuthorizer'
       KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
       KAFKA_LOG_DIRS: '/tmp/kraft-combined-logs'
+      CLUSTER_ID: 'zlFiTJelTOuhnklFwLWixw'
     volumes:
-      - ./scripts/update_run.sh:/tmp/update_run.sh
-      - ./clusterID:/tmp/clusterID
+#      - ./scripts/update_run.sh:/tmp/update_run.sh
+#      - ./clusterID:/tmp/clusterID
       - ./jaas:/etc/kafka/jaas
-    command: "bash -c '/tmp/update_run.sh && /etc/confluent/docker/run'"
+#    command: "bash -c '/tmp/update_run.sh && /etc/confluent/docker/run'"
 
   broker3:
-    image: confluentinc/cp-kafka:7.3.3
+    image: confluentinc/cp-kafka:7.4.0
     hostname: broker3
     container_name: broker3
     ports:
@@ -101,11 +103,12 @@ services:
       KAFKA_AUTHORIZER_CLASS_NAME: 'org.apache.kafka.metadata.authorizer.StandardAuthorizer'
       KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
       KAFKA_LOG_DIRS: '/tmp/kraft-combined-logs'
+      CLUSTER_ID: 'zlFiTJelTOuhnklFwLWixw'
     volumes:
-      - ./scripts/update_run.sh:/tmp/update_run.sh
-      - ./clusterID:/tmp/clusterID
+#      - ./scripts/update_run.sh:/tmp/update_run.sh
+#      - ./clusterID:/tmp/clusterID
       - ./jaas:/etc/kafka/jaas
-    command: "bash -c '/tmp/update_run.sh && /etc/confluent/docker/run'"
+#    command: "bash -c '/tmp/update_run.sh && /etc/confluent/docker/run'"
 
 
   kafka-ui:
@@ -119,7 +122,9 @@ services:
       - broker1
       - broker2
       - broker3
-    entrypoint: ./console --config.filepath=/tmp/kowl/config.yaml
+    environment:
+      KAFKA_BROKERS: 'broker1:29092,broker2:29092,broker3:29092'
+ #   entrypoint: ./console --config.filepath=/tmp/kowl/config.yaml
 
 
 
