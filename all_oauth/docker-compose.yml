@@ -12,7 +12,7 @@ services:
       KAFKA_broker_ID: 1
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:SASL_PLAINTEXT'
       KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://broker1:29092,PLAINTEXT_HOST://localhost:9092'
-      KAFKA_OPTS: "-Djava.security.auth.login.config=/etc/kafka/jaas/kafka_server.conf"
+      KAFKA_OPTS: "-Djava.security.auth.login.config=/etc/kafka/jaas/kafka_oauth.conf"
       KAFKA_LOG4J_OPTS: "-Dlog4j.configuration=file:/etc/kafka/jaas/log4j.properties"
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
@@ -24,7 +24,7 @@ services:
       KAFKA_NODE_ID: 1
       KAFKA_CONTROLLER_QUORUM_VOTERS: '1@broker1:29093,2@broker2:29093,3@broker3:29093'
       KAFKA_LISTENERS: 'PLAINTEXT://broker1:29092,CONTROLLER://broker1:29093,PLAINTEXT_HOST://0.0.0.0:9092'
-      KAFKA_SASL_ENABLED_MECHANISMS: 'PLAIN'
+      KAFKA_SASL_ENABLED_MECHANISMS: 'OAUTHBEARER'
       KAFKA_INTER_BROKER_LISTENER_NAME: 'PLAINTEXT'
       KAFKA_SECURITY_PROTOCOL: 'SASL_PLAINTEXT'
       KAFKA_SUPER_USERS: 'User:admin;User:mds;User:superUser;User:ANONYMOUS'
@@ -32,11 +32,12 @@ services:
       KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
       KAFKA_LOG_DIRS: '/tmp/kraft-combined-logs'
       CLUSTER_ID: 'zlFiTJelTOuhnklFwLWixw'
+      OAUTHBEARER_SASL_LOGIN_CALLBACK_HANDLER_CLASS: 'tech.goraft.kafka.oauthbearer.OAuthAuthenticateLoginCallbackHandler'
+      OAUTHBEARER_SASL_SERVER_CALLBACK_HANDLER_CLASS: 'tech.goraft.kafka.oauthbearer.OAuthAuthenticateValidatorCallbackHandler'
     volumes:
-#      - ./scripts/update_run.sh:/tmp/update_run.sh
-#      - ./clusterID:/tmp/clusterID
       - ./jaas:/etc/kafka/jaas
-#    command: "bash -c '/tmp/update_run.sh && /etc/confluent/docker/run'"
+      - ./data/kafka1:/tmp/kraft-combined-logs
+      - ./data/log/log1:/var/log
 
   broker2:
     image: confluentinc/cp-kafka:7.4.0
@@ -48,7 +49,7 @@ services:
       KAFKA_broker_ID: 2
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:SASL_PLAINTEXT'
       KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://broker2:29092,PLAINTEXT_HOST://localhost:9092'
-      KAFKA_OPTS: "-Djava.security.auth.login.config=/etc/kafka/jaas/kafka_server.conf"
+      KAFKA_OPTS: "-Djava.security.auth.login.config=/etc/kafka/jaas/kafka_oauth.conf"
       KAFKA_LOG4J_OPTS: "-Dlog4j.configuration=file:/etc/kafka/jaas/log4j.properties"
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
@@ -60,7 +61,7 @@ services:
       KAFKA_NODE_ID: 2
       KAFKA_CONTROLLER_QUORUM_VOTERS: '1@broker1:29093,2@broker2:29093,3@broker3:29093'
       KAFKA_LISTENERS: 'PLAINTEXT://broker2:29092,CONTROLLER://broker2:29093,PLAINTEXT_HOST://0.0.0.0:9092'
-      KAFKA_SASL_ENABLED_MECHANISMS: 'PLAIN'
+      KAFKA_SASL_ENABLED_MECHANISMS: 'OAUTHBEARER'
       KAFKA_INTER_BROKER_LISTENER_NAME: 'PLAINTEXT'
       KAFKA_SECURITY_PROTOCOL: 'SASL_PLAINTEXT'
       KAFKA_SUPER_USERS: 'User:admin;User:mds;User:superUser;User:ANONYMOUS'
@@ -68,11 +69,12 @@ services:
       KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
       KAFKA_LOG_DIRS: '/tmp/kraft-combined-logs'
       CLUSTER_ID: 'zlFiTJelTOuhnklFwLWixw'
+      OAUTHBEARER_SASL_LOGIN_CALLBACK_HANDLER_CLASS: 'tech.goraft.kafka.oauthbearer.OAuthAuthenticateLoginCallbackHandler'
+      OAUTHBEARER_SASL_SERVER_CALLBACK_HANDLER_CLASS: 'tech.goraft.kafka.oauthbearer.OAuthAuthenticateValidatorCallbackHandler'
     volumes:
-#      - ./scripts/update_run.sh:/tmp/update_run.sh
-#      - ./clusterID:/tmp/clusterID
       - ./jaas:/etc/kafka/jaas
-#    command: "bash -c '/tmp/update_run.sh && /etc/confluent/docker/run'"
+      - ./data/kafka2:/tmp/kraft-combined-logs
+      - ./data/log/log2:/var/log
 
   broker3:
     image: confluentinc/cp-kafka:7.4.0
@@ -84,7 +86,7 @@ services:
       KAFKA_broker_ID: 3
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:SASL_PLAINTEXT'
       KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://broker3:29092,PLAINTEXT_HOST://localhost:9092'
-      KAFKA_OPTS: "-Djava.security.auth.login.config=/etc/kafka/jaas/kafka_server.conf"
+      KAFKA_OPTS: "-Djava.security.auth.login.config=/etc/kafka/jaas/kafka_oauth.conf"
       KAFKA_LOG4J_OPTS: "-Dlog4j.configuration=file:/etc/kafka/jaas/log4j.properties"
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
@@ -96,7 +98,7 @@ services:
       KAFKA_NODE_ID: 3
       KAFKA_CONTROLLER_QUORUM_VOTERS: '1@broker1:29093,2@broker2:29093,3@broker3:29093'
       KAFKA_LISTENERS: 'PLAINTEXT://broker3:29092,CONTROLLER://broker3:29093,PLAINTEXT_HOST://0.0.0.0:9092'
-      KAFKA_SASL_ENABLED_MECHANISMS: 'PLAIN'
+      KAFKA_SASL_ENABLED_MECHANISMS: 'OAUTHBEARER'
       KAFKA_INTER_BROKER_LISTENER_NAME: 'PLAINTEXT'
       KAFKA_SECURITY_PROTOCOL: 'SASL_PLAINTEXT'
       KAFKA_SUPER_USERS: 'User:admin;User:mds;User:superUser;User:ANONYMOUS'
@@ -104,11 +106,12 @@ services:
       KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
       KAFKA_LOG_DIRS: '/tmp/kraft-combined-logs'
       CLUSTER_ID: 'zlFiTJelTOuhnklFwLWixw'
+      OAUTHBEARER_SASL_LOGIN_CALLBACK_HANDLER_CLASS: 'tech.goraft.kafka.oauthbearer.OAuthAuthenticateLoginCallbackHandler'
+      OAUTHBEARER_SASL_SERVER_CALLBACK_HANDLER_CLASS: 'tech.goraft.kafka.oauthbearer.OAuthAuthenticateValidatorCallbackHandler'
     volumes:
-#      - ./scripts/update_run.sh:/tmp/update_run.sh
-#      - ./clusterID:/tmp/clusterID
       - ./jaas:/etc/kafka/jaas
-#    command: "bash -c '/tmp/update_run.sh && /etc/confluent/docker/run'"
+      - ./data/kafka3:/tmp/kraft-combined-logs
+      - ./data/log/log3:/var/log
 
 
   kafka-ui:
