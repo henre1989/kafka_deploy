@@ -40,11 +40,11 @@ services:
       KAFKA_LISTENER_NAME_EXTERNAL_OAUTHBEARER_SASL_LOGIN_CALLBACK_HANDLER_CLASS: 'org.apache.kafka.common.security.oauthbearer.secured.OAuthBearerLoginCallbackHandler'
 #      KAFKA_SASL_LOGIN_CALLBACK_HANDLER_CLASS: 'io.confluent.kafka.server.plugins.auth.token.TokenBearerServerLoginCallbackHandler'
       KAFKA_LISTENER_NAME_EXTERNAL_OAUTHBEARER_SASL_SERVER_CALLBACK_HANDLER_CLASS: 'org.apache.kafka.common.security.oauthbearer.secured.OAuthBearerValidatorCallbackHandler'
-#      KAFKA_SASL_SERVER_CALLBACK_HANDLER_CLASS: 'io.confluent.kafka.server.plugins.auth.token.TokenBearerValidatorCallbackHandler'
+#     KAFKA_LISTENER_NAME_EXTERNAL_OAUTHBEARER_SASL_SERVER_CALLBACK_HANDLER_CLASS: 'io.confluent.kafka.server.plugins.auth.token.TokenBearerValidatorCallbackHandler'
     volumes:
       - ./jaas:/etc/kafka/jaas
-      - ./data/kafka1:/tmp/kraft-combined-logs
-      - ./data/log/log1:/var/log
+#      - ./data/kafka1:/tmp/kraft-combined-logs
+#      - ./data/log/log1:/var/log
 
   broker2:
     image: confluentinc/cp-kafka:7.4.0
@@ -82,13 +82,13 @@ services:
       KAFKA_SASL_OAUTHBEARER_TOKEN_ENDPOINT_URL: 'http://keycloak:8080/auth/realms/kafka/protocol/openid-connect/token'
       KAFKA_SASL_OAUTHBEARER_JWKS_ENDPOINT_URL: 'http://keycloak:8080/auth/realms/kafka/protocol/openid-connect/certs'
       KAFKA_LISTENER_NAME_EXTERNAL_OAUTHBEARER_SASL_LOGIN_CALLBACK_HANDLER_CLASS: 'org.apache.kafka.common.security.oauthbearer.secured.OAuthBearerLoginCallbackHandler'
-#      KAFKA_SASL_LOGIN_CALLBACK_HANDLER_CLASS: 'io.confluent.kafka.server.plugins.auth.token.TokenBearerServerLoginCallbackHandler'
+#      KAFKA_LISTENER_NAME_EXTERNAL_OAUTHBEARER_SASL_LOGIN_CALLBACK_HANDLER_CLASS: 'io.confluent.kafka.server.plugins.auth.token.TokenBearerServerLoginCallbackHandler'
       KAFKA_LISTENER_NAME_EXTERNAL_OAUTHBEARER_SASL_SERVER_CALLBACK_HANDLER_CLASS: 'org.apache.kafka.common.security.oauthbearer.secured.OAuthBearerValidatorCallbackHandler'
-#      KAFKA_SASL_SERVER_CALLBACK_HANDLER_CLASS: 'io.confluent.kafka.server.plugins.auth.token.TokenBearerValidatorCallbackHandler'
+#     KAFKA_LISTENER_NAME_EXTERNAL_OAUTHBEARER_SASL_SERVER_CALLBACK_HANDLER_CLASS: 'io.confluent.kafka.server.plugins.auth.token.TokenBearerValidatorCallbackHandler'
     volumes:
       - ./jaas:/etc/kafka/jaas
-      - ./data/kafka2:/tmp/kraft-combined-logs
-      - ./data/log/log2:/var/log
+#      - ./data/kafka2:/tmp/kraft-combined-logs
+#      - ./data/log/log2:/var/log
 
   broker3:
     image: confluentinc/cp-kafka:7.4.0
@@ -126,20 +126,20 @@ services:
       KAFKA_SASL_OAUTHBEARER_TOKEN_ENDPOINT_URL: 'http://keycloak:8080/auth/realms/kafka/protocol/openid-connect/token'
       KAFKA_SASL_OAUTHBEARER_JWKS_ENDPOINT_URL: 'http://keycloak:8080/auth/realms/kafka/protocol/openid-connect/certs'
       KAFKA_LISTENER_NAME_EXTERNAL_OAUTHBEARER_SASL_LOGIN_CALLBACK_HANDLER_CLASS: 'org.apache.kafka.common.security.oauthbearer.secured.OAuthBearerLoginCallbackHandler'
-#      KAFKA_SASL_LOGIN_CALLBACK_HANDLER_CLASS: 'io.confluent.kafka.server.plugins.auth.token.TokenBearerServerLoginCallbackHandler'
+#      KAFKA_LISTENER_NAME_EXTERNAL_OAUTHBEARER_SASL_LOGIN_CALLBACK_HANDLER_CLASS: 'io.confluent.kafka.server.plugins.auth.token.TokenBearerServerLoginCallbackHandler'
       KAFKA_LISTENER_NAME_EXTERNAL_OAUTHBEARER_SASL_SERVER_CALLBACK_HANDLER_CLASS: 'org.apache.kafka.common.security.oauthbearer.secured.OAuthBearerValidatorCallbackHandler'
-#      KAFKA_SASL_SERVER_CALLBACK_HANDLER_CLASS: 'io.confluent.kafka.server.plugins.auth.token.TokenBearerValidatorCallbackHandler'
+#     KAFKA_LISTENER_NAME_EXTERNAL_OAUTHBEARER_SASL_SERVER_CALLBACK_HANDLER_CLASS: 'io.confluent.kafka.server.plugins.auth.token.TokenBearerValidatorCallbackHandler'
     volumes:
       - ./jaas:/etc/kafka/jaas
-      - ./data/kafka3:/tmp/kraft-combined-logs
-      - ./data/log/log3:/var/log
+#      - ./data/kafka3:/tmp/kraft-combined-logs
+#      - ./data/log/log3:/var/log
 
 
   kafka-ui:
     container_name: kafka-ui3
     image: docker.redpanda.com/vectorized/console:latest
     ports:
-      - "8080:8080"
+      - "8081:8080"
     volumes:
       - ./kowl/config.yaml:/tmp/kowl/config.yaml
     depends_on:
@@ -172,10 +172,12 @@ services:
     container_name: keycloak
     image: jboss/keycloak:latest
     ports:
-      - 8081:8080
+      - 8080:8080
     environment:
       KEYCLOAK_USER: admin
       KEYCLOAK_PASSWORD: admin
+      KEYCLOAK_LOGLEVEL: DEBUG
+
 #    command: start-dev
 #networks:
 #  test:
@@ -185,10 +187,10 @@ services:
 #        - subnet: 172.16.238.0/24
 #          gateway: 172.16.238.1
 
-#  keycloak:
+#  keycloak2:
 #    image: quay.io/keycloak/keycloak:latest
 #    ports:
-#      - 8081:8080
+#      - 8080:8080
 #    environment:
 #      KEYCLOAK_ADMIN: admin
 #      KEYCLOAK_ADMIN_PASSWORD: admin
