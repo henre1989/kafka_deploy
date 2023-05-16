@@ -26,7 +26,7 @@ services:
       KAFKA_NODE_ID: 1
       KAFKA_CONTROLLER_QUORUM_VOTERS: '1@broker1:29093,2@broker2:29093,3@broker3:29093'
       KAFKA_LISTENERS: 'PLAINTEXT://broker1:29092,CONTROLLER://broker1:29093,PLAINTEXT_HOST://0.0.0.0:9092,EXTERNAL://localhost:9093'
-      KAFKA_SASL_ENABLED_MECHANISMS: 'OAUTHBEARER'
+      KAFKA_SASL_ENABLED_MECHANISMS: 'PLAIN,OAUTHBEARER'
       KAFKA_INTER_BROKER_LISTENER_NAME: 'PLAINTEXT'
       KAFKA_SECURITY_PROTOCOL: 'SASL_PLAINTEXT'
       KAFKA_SUPER_USERS: 'User:admin;User:mds;User:superUser;User:ANONYMOUS'
@@ -35,8 +35,8 @@ services:
       KAFKA_LOG_DIRS: '/tmp/kraft-combined-logs'
       CLUSTER_ID: 'zlFiTJelTOuhnklFwLWixw'
       KAFKA_LISTENER_NAME_EXTERNAL_SASL_ENABLED_MECHANISMS: 'OAUTHBEARER'
-      KAFKA_SASL_OAUTHBEARER_TOKEN_ENDPOINT_URL: 'http://keycloak:8080/auth/realms/kafka/protocol/openid-connect/token'
-      KAFKA_SASL_OAUTHBEARER_JWKS_ENDPOINT_URL: 'http://keycloak:8080/auth/realms/kafka/protocol/openid-connect/certs'
+      KAFKA_SASL_OAUTHBEARER_TOKEN_ENDPOINT_URL: 'http://keycloak:8080/realms/kafka/protocol/openid-connect/token'
+      KAFKA_SASL_OAUTHBEARER_JWKS_ENDPOINT_URL: 'http://keycloak:8080/realms/kafka/protocol/openid-connect/certs'
       KAFKA_LISTENER_NAME_EXTERNAL_OAUTHBEARER_SASL_LOGIN_CALLBACK_HANDLER_CLASS: 'org.apache.kafka.common.security.oauthbearer.secured.OAuthBearerLoginCallbackHandler'
 #      KAFKA_SASL_LOGIN_CALLBACK_HANDLER_CLASS: 'io.confluent.kafka.server.plugins.auth.token.TokenBearerServerLoginCallbackHandler'
       KAFKA_LISTENER_NAME_EXTERNAL_OAUTHBEARER_SASL_SERVER_CALLBACK_HANDLER_CLASS: 'org.apache.kafka.common.security.oauthbearer.secured.OAuthBearerValidatorCallbackHandler'
@@ -70,7 +70,7 @@ services:
       KAFKA_NODE_ID: 2
       KAFKA_CONTROLLER_QUORUM_VOTERS: '1@broker1:29093,2@broker2:29093,3@broker3:29093'
       KAFKA_LISTENERS: 'PLAINTEXT://broker2:29092,CONTROLLER://broker2:29093,PLAINTEXT_HOST://0.0.0.0:9092,EXTERNAL://localhost:9093'
-      KAFKA_SASL_ENABLED_MECHANISMS: 'OAUTHBEARER'
+      KAFKA_SASL_ENABLED_MECHANISMS: 'PLAIN,OAUTHBEARER'
       KAFKA_INTER_BROKER_LISTENER_NAME: 'PLAINTEXT'
       KAFKA_SECURITY_PROTOCOL: 'SASL_PLAINTEXT'
       KAFKA_SUPER_USERS: 'User:admin;User:mds;User:superUser;User:ANONYMOUS'
@@ -79,8 +79,8 @@ services:
       KAFKA_LOG_DIRS: '/tmp/kraft-combined-logs'
       CLUSTER_ID: 'zlFiTJelTOuhnklFwLWixw'
       KAFKA_LISTENER_NAME_EXTERNAL_SASL_ENABLED_MECHANISMS: 'OAUTHBEARER'
-      KAFKA_SASL_OAUTHBEARER_TOKEN_ENDPOINT_URL: 'http://keycloak:8080/auth/realms/kafka/protocol/openid-connect/token'
-      KAFKA_SASL_OAUTHBEARER_JWKS_ENDPOINT_URL: 'http://keycloak:8080/auth/realms/kafka/protocol/openid-connect/certs'
+      KAFKA_SASL_OAUTHBEARER_TOKEN_ENDPOINT_URL: 'http://keycloak:8080/realms/kafka/protocol/openid-connect/token'
+      KAFKA_SASL_OAUTHBEARER_JWKS_ENDPOINT_URL: 'http://keycloak:8080/realms/kafka/protocol/openid-connect/certs'
       KAFKA_LISTENER_NAME_EXTERNAL_OAUTHBEARER_SASL_LOGIN_CALLBACK_HANDLER_CLASS: 'org.apache.kafka.common.security.oauthbearer.secured.OAuthBearerLoginCallbackHandler'
 #      KAFKA_LISTENER_NAME_EXTERNAL_OAUTHBEARER_SASL_LOGIN_CALLBACK_HANDLER_CLASS: 'io.confluent.kafka.server.plugins.auth.token.TokenBearerServerLoginCallbackHandler'
       KAFKA_LISTENER_NAME_EXTERNAL_OAUTHBEARER_SASL_SERVER_CALLBACK_HANDLER_CLASS: 'org.apache.kafka.common.security.oauthbearer.secured.OAuthBearerValidatorCallbackHandler'
@@ -114,7 +114,7 @@ services:
       KAFKA_NODE_ID: 3
       KAFKA_CONTROLLER_QUORUM_VOTERS: '1@broker1:29093,2@broker2:29093,3@broker3:29093'
       KAFKA_LISTENERS: 'PLAINTEXT://broker3:29092,CONTROLLER://broker3:29093,PLAINTEXT_HOST://0.0.0.0:9092,EXTERNAL://localhost:9093'
-      KAFKA_SASL_ENABLED_MECHANISMS: 'OAUTHBEARER'
+      KAFKA_SASL_ENABLED_MECHANISMS: 'PLAIN,OAUTHBEARER'
       KAFKA_INTER_BROKER_LISTENER_NAME: 'PLAINTEXT'
       KAFKA_SECURITY_PROTOCOL: 'SASL_PLAINTEXT'
       KAFKA_SUPER_USERS: 'User:admin;User:mds;User:superUser;User:ANONYMOUS'
@@ -123,8 +123,8 @@ services:
       KAFKA_LOG_DIRS: '/tmp/kraft-combined-logs'
       CLUSTER_ID: 'zlFiTJelTOuhnklFwLWixw'
       KAFKA_LISTENER_NAME_EXTERNAL_SASL_ENABLED_MECHANISMS: 'OAUTHBEARER'
-      KAFKA_SASL_OAUTHBEARER_TOKEN_ENDPOINT_URL: 'http://keycloak:8080/auth/realms/kafka/protocol/openid-connect/token'
-      KAFKA_SASL_OAUTHBEARER_JWKS_ENDPOINT_URL: 'http://keycloak:8080/auth/realms/kafka/protocol/openid-connect/certs'
+      KAFKA_SASL_OAUTHBEARER_TOKEN_ENDPOINT_URL: 'http://keycloak:8080/realms/kafka/protocol/openid-connect/token'
+      KAFKA_SASL_OAUTHBEARER_JWKS_ENDPOINT_URL: 'http://keycloak:8080/realms/kafka/protocol/openid-connect/certs'
       KAFKA_LISTENER_NAME_EXTERNAL_OAUTHBEARER_SASL_LOGIN_CALLBACK_HANDLER_CLASS: 'org.apache.kafka.common.security.oauthbearer.secured.OAuthBearerLoginCallbackHandler'
 #      KAFKA_LISTENER_NAME_EXTERNAL_OAUTHBEARER_SASL_LOGIN_CALLBACK_HANDLER_CLASS: 'io.confluent.kafka.server.plugins.auth.token.TokenBearerServerLoginCallbackHandler'
       KAFKA_LISTENER_NAME_EXTERNAL_OAUTHBEARER_SASL_SERVER_CALLBACK_HANDLER_CLASS: 'org.apache.kafka.common.security.oauthbearer.secured.OAuthBearerValidatorCallbackHandler'
@@ -168,11 +168,11 @@ services:
 #      CONFLUENT_METRICS_TOPIC_REPLICATION: 1
 #      PORT: 9021
 
-  keycloak:
-    container_name: keycloak
+  keycloak2:
+    container_name: keycloak2
     image: jboss/keycloak:latest
     ports:
-      - 8080:8080
+      - 8081:8080
     environment:
       KEYCLOAK_USER: admin
       KEYCLOAK_PASSWORD: admin
@@ -187,14 +187,14 @@ services:
 #        - subnet: 172.16.238.0/24
 #          gateway: 172.16.238.1
 
-#  keycloak2:
-#    image: quay.io/keycloak/keycloak:latest
-#    ports:
-#      - 8080:8080
-#    environment:
-#      KEYCLOAK_ADMIN: admin
-#      KEYCLOAK_ADMIN_PASSWORD: admin
-#    command: start-dev
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    ports:
+      - 8080:8080
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    command: start-dev --log-level=DEBUG
 
 
 #  akhq:
