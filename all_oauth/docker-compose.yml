@@ -150,12 +150,15 @@ services:
       KAFKA_BROKERS: 'broker1:29092,broker2:29092,broker3:29092'
   #   entrypoint: ./console --config.filepath=/tmp/kowl/config.yaml
 
-#  kafka-exporter:
-#      container_name: kafka-exporter
-#      image: docker.io/bitnami/kafka-exporter:latest
-#      ports:
-#        - "9308:9308"
-#      command: --kafka.server=broker1:29092
+  kafka-exporter:
+      container_name: kafka-exporter
+      image: docker.io/bitnami/kafka-exporter:latest
+      ports:
+        - "9308:9308"
+      environment:
+        KAFKA_SERVER: 'PLAINTEXT://broker1:29092,PLAINTEXT://broker2:29092,PLAINTEXT://broker3:29092'
+        KAFKA_AUTHENTICATION_PROTOCOL: 'PLAINTEXT'
+      command: --kafka.server=broker1:29092 --kafka.server=broker2:29092 --kafka.server=broker3:29092
 #
 #  kafka_exporter2:
 #    container_name: kafka-exporter2
@@ -182,15 +185,15 @@ services:
 #      CONFLUENT_METRICS_TOPIC_REPLICATION: 1
 #      PORT: 9021
 
-  keycloak2:
-    container_name: keycloak2
-    image: jboss/keycloak:latest
-    ports:
-      - 8081:8080
-    environment:
-      KEYCLOAK_USER: admin
-      KEYCLOAK_PASSWORD: admin
-      KEYCLOAK_LOGLEVEL: DEBUG
+#  keycloak2:
+#    container_name: keycloak2
+#    image: jboss/keycloak:latest
+#    ports:
+#      - 8081:8080
+#    environment:
+#      KEYCLOAK_USER: admin
+#      KEYCLOAK_PASSWORD: admin
+#      KEYCLOAK_LOGLEVEL: DEBUG
 
 #    command: start-dev
 #networks:

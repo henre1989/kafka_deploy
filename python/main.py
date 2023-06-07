@@ -1,7 +1,8 @@
 from kafka import KafkaConsumer
 from kafka import KafkaProducer
 import json
-
+from oauthlib.oauth2 import BackendApplicationClient
+from requests_oauthlib import OAuth2Session
 
 
 
@@ -34,10 +35,15 @@ class TokenProvider(object):
         # print(token)
         return token
 
-# def token():
-#     token = sasl_oauth_token_provider
-#     # print(token)
-#     return token
+def token(client_id, client_secret):
+    token_url = 'https://kdbo-keycloak.skblab.ru/realms/kafka/protocol/openid-connect/token'
+    client = BackendApplicationClient(client_id=client_id)
+    oauth = OAuth2Session(client=client)
+    token_json = oauth.fetch_token(token_url=token_url, client_id=client_id, client_secret=client_secret)
+    token = token_json['access_token']
+    print(token)
+    # print(token)
+    return token
 
 def cons():
     consumer = KafkaConsumer(topicName,
@@ -67,7 +73,7 @@ def prod():
         security_protocol=security_protocol,
         # sasl_plain_username=sasl_plain_username,
         # sasl_plain_password=sasl_plain_password,
-        sasl_oauth_token_provider=TokenProvider(client_id,client_secret),
+        sasl_oauth_token_provider=token(client_id,client_secret),
         sasl_mechanism=sasl_mechanism,
 
         value_serializer=lambda m: json.dumps(m).encode('ascii')
